@@ -118,9 +118,22 @@
     <section id="analyzer" class="analyzer">
         <div class="container">
             <h2 class="section-title">Try DevLens Now</h2>
-            <p class="section-subtitle">Paste your code and get instant AI-powered analysis</p>
+            <p class="section-subtitle">Analyze code snippets or entire GitHub repositories</p>
             
-            <div class="analyzer-container">
+            <!-- Mode Tabs -->
+            <div class="mode-tabs">
+                <button class="mode-tab active" data-mode="code" onclick="switchMode('code')">
+                    <span class="tab-icon">📝</span>
+                    <span class="tab-text">Code Snippet</span>
+                </button>
+                <button class="mode-tab" data-mode="repo" onclick="switchMode('repo')">
+                    <span class="tab-icon">📦</span>
+                    <span class="tab-text">GitHub Repository</span>
+                </button>
+            </div>
+            
+            <!-- Code Snippet Mode -->
+            <div class="analyzer-container" id="codeMode">
                 <!-- Analysis Type Selector -->
                 <div class="analysis-selector">
                     <button class="analysis-btn active" data-type="review">
@@ -214,6 +227,72 @@ function calculateTotal(items) {
                     <div class="error-content">
                         <span class="error-icon">⚠️</span>
                         <span class="error-message" id="errorMessage"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GitHub Repository Mode -->
+            <div class="analyzer-container" id="repoMode" style="display: none;">
+                <div class="repo-input-section">
+                    <div class="input-header">
+                        <label for="repoInput">GitHub Repository URL</label>
+                        <div class="repo-info">
+                            <span class="info-icon" title="Enter a public GitHub repository URL">ℹ️</span>
+                        </div>
+                    </div>
+                    <input 
+                        type="text" 
+                        id="repoInput" 
+                        class="repo-input" 
+                        placeholder="https://github.com/username/repository"
+                        spellcheck="false"
+                    />
+                    <div class="repo-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="includeReadme" checked>
+                            <span>Include README analysis</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="includeStructure" checked>
+                            <span>Analyze directory structure</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="includeDependencies" checked>
+                            <span>Check dependencies</span>
+                        </label>
+                    </div>
+                    <div class="input-footer">
+                        <span class="repo-status" id="repoStatus">Enter a GitHub repository URL</span>
+                        <button class="btn-primary btn-analyze" onclick="analyzeRepo()">
+                            <span class="btn-spinner" id="repoSpinner" style="display: none;">⏳</span>
+                            <span id="analyzeRepoText">Analyze Repository</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Repository Results -->
+                <div class="results-section" id="repoResultsSection" style="display: none;">
+                    <div class="results-header">
+                        <h3>Repository Analysis</h3>
+                        <div class="results-actions">
+                            <button class="btn-secondary btn-sm" onclick="copyRepoResults()">
+                                📋 Copy
+                            </button>
+                            <button class="btn-secondary btn-sm" onclick="downloadRepoResults()">
+                                💾 Download
+                            </button>
+                        </div>
+                    </div>
+                    <div class="results-content" id="repoResultsContent">
+                        <!-- Results will be inserted here -->
+                    </div>
+                </div>
+
+                <!-- Repository Error Section -->
+                <div class="error-section" id="repoErrorSection" style="display: none;">
+                    <div class="error-content">
+                        <span class="error-icon">⚠️</span>
+                        <span class="error-message" id="repoErrorMessage"></span>
                     </div>
                 </div>
             </div>

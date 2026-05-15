@@ -17,6 +17,273 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeAnalysisButtons();
     initializeCodeInput();
     loadAnalysisCount();
+
+// Mode switching
+function switchMode(mode) {
+    const tabs = document.querySelectorAll('.mode-tab');
+    tabs.forEach(tab => tab.classList.remove('active'));
+    document.querySelector(`[data-mode="${mode}"]`).classList.add('active');
+    
+    if (mode === 'code') {
+        document.getElementById('codeMode').style.display = 'block';
+        document.getElementById('repoMode').style.display = 'none';
+    } else {
+        document.getElementById('codeMode').style.display = 'none';
+        document.getElementById('repoMode').style.display = 'block';
+    }
+}
+
+// GitHub Repository Analysis
+async function analyzeRepo() {
+    const repoUrl = document.getElementById('repoInput').value.trim();
+    
+    // Validation
+    if (!repoUrl) {
+        showRepoError('Please enter a GitHub repository URL');
+        return;
+    }
+    
+    if (!isValidGitHubUrl(repoUrl)) {
+        showRepoError('Please enter a valid GitHub repository URL (e.g., https://github.com/username/repo)');
+        return;
+    }
+    
+    // Check daily limit
+    if (!checkDailyLimit()) {
+        showRepoError('Daily limit reached (10 analyses). Upgrade to Pro for unlimited analyses.');
+        return;
+    }
+    
+    // Show loading state
+    showRepoLoading();
+    hideRepoError();
+    hideRepoResults();
+    
+    try {
+        // Parse GitHub URL
+        const { owner, repo } = parseGitHubUrl(repoUrl);
+        
+        // Get repository data from GitHub API
+        const repoData = await fetchGitHubRepo(owner, repo);
+        
+        // Get options
+        const includeReadme = document.getElementById('includeReadme').checked;
+        const includeStructure = document.getElementById('includeStructure').checked;
+        const includeDependencies = document.getElementById('includeDependencies').checked;
+        
+        // Build analysis prompt
+        const prompt = buildRepoAnalysisPrompt(repoData, {
+            includeReadme,
+            includeStructure,
+            includeDependencies
+        });
+        
+        // Call Google AI
+        const result = await callGoogleAI(prompt);
+        
+        // Display results
+        showRepoResults(result);
+        
+        // Increment analysis count
+        incrementAnalysisCount();
+        
+    } catch (error) {
+        console.error('Repository analysis error:', error);
+        showRepoError(error.message || 'Failed to analyze repository. Please check the URL and try again.');
+    } finally {
+        hideRepoLoading();
+    }
+}
+
+function isValidGitHubUrl(url) {
+    const githubPattern = /^https?:\/\/(www\.)?github\.com\/[\w-]+\/[\w.-]+\/?$/;
+    return githubPattern.test(url);
+}
+
+function parseGitHubUrl(url) {
+    const match = url.match(/github\.com\/([\w-]+)\/([\w.-]+)/);
+    if (!match) throw new Error('Invalid GitHub URL');
+    return {
+        owner: match[1],
+        repo: match[2].replace(/\.git$/, '')
+    };
+}
+
+async function fetchGitHubRepo(owner, repo) {
+    try {
+        // Fetch repository info
+        const repoResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
+        if (!repoResponse.ok) {
+            if (repoResponse.status === 404) {
+                throw new Error('Repository not found. Make sure it\'s public.');
+            }
+            throw new Error(`GitHub API error: ${repoResponse.status}`);
+        }
+        const repoInfo = await repoResponse.json();
+        
+        // Fetch README
+        let readme = null;
+        try {
+            const readmeResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}/readme`);
+            if (readmeResponse.ok) {
+                const readmeData = await readmeResponse.json();
+                readme = atob(readmeData.content);
+            }
+        } catch (e) {
+            console.log('No README found');
+        }
+        
+        // Fetch directory structure
+        const contentsResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents`);
+        const contents = contentsResponse.ok ? await contentsResponse.json() : [];
+        
+        // Fetch languages
+        const languagesResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}/languages`);
+        const languages = languagesResponse.ok ? await languagesResponse.json() : {};
+        
+        return {
+            name: repoInfo.name,
+            fullName: repoInfo.full_name,
+            description: repoInfo.description,
+            language: repoInfo.language,
+            languages: languages,
+            stars: repoInfo.stargazers_count,
+            forks: repoInfo.forks_count,
+            openIssues: repoInfo.open_issues_count,
+            createdAt: repoInfo.created_at,
+            updatedAt: repoInfo.updated_at,
+            size: repoInfo.size,
+            defaultBranch: repoInfo.default_branch,
+            topics: repoInfo.topics || [],
+            readme: readme,
+            contents: contents,
+            url: repoInfo.html_url
+        };
+    } catch (error) {
+        throw new Error(`Failed to fetch repository: ${error.message}`);
+    }
+}
+
+function buildRepoAnalysisPrompt(repoData, options) {
+    let prompt = `You are a senior software architect. Analyze this GitHub repository and provide a comprehensive "Repo Bible":
+
+# Repository: ${repoData.fullName}
+
+## Basic Information
+- **Description**: ${repoData.description || 'No description'}
+- **Primary Language**: ${repoData.language || 'Not specified'}
+- **Stars**: ${repoData.stars}
+- **Forks**: ${repoData.forks}
+- **Open Issues**: ${repoData.openIssues}
+- **Created**: ${new Date(repoData.createdAt).toLocaleDateString()}
+- **Last Updated**: ${new Date(repoData.updatedAt).toLocaleDateString()}
+- **Topics**: ${repoData.topics.join(', ') || 'None'}
+
+## Languages Used
+${Object.entries(repoData.languages).map(([lang, bytes]) => `- ${lang}: ${(bytes / 1024).toFixed(2)} KB`).join('\n')}
+
+`;
+
+    if (options.includeReadme && repoData.readme) {
+        prompt += `\n## README Content\n\`\`\`\n${repoData.readme.substring(0, 3000)}\n\`\`\`\n`;
+    }
+
+    if (options.includeStructure && repoData.contents.length > 0) {
+        prompt += `\n## Directory Structure\n`;
+        repoData.contents.forEach(item => {
+            prompt += `- ${item.type === 'dir' ? '📁' : '📄'} ${item.name}\n`;
+        });
+    }
+
+    prompt += `\n\nProvide a comprehensive analysis including:
+
+1. **🎯 What This Project Does** (one paragraph plain English)
+2. **🛠️ Tech Stack** (detected languages, frameworks, tools)
+3. **🏗️ Architecture Overview** (how components connect)
+4. **📁 Project Structure** (what each folder/file does)
+5. **🔄 Data Flow** (how data moves through the app)
+6. **⭐ Key Files** (top 5 most important files and why)
+7. **⚠️ Complexity Warnings** (confusing or risky parts)
+8. **🚀 Getting Started** (how to run and contribute)
+9. **💡 Suggested Improvements** (what could be better)
+10. **🎓 Learning Opportunities** (what developers can learn)
+
+Format the output in markdown with clear sections and emoji indicators.`;
+
+    return prompt;
+}
+
+// Show/hide functions for repo mode
+function showRepoLoading() {
+    document.getElementById('repoSpinner').style.display = 'inline-block';
+    document.getElementById('analyzeRepoText').textContent = 'Analyzing Repository...';
+    document.querySelector('#repoMode .btn-analyze').disabled = true;
+    document.getElementById('repoStatus').textContent = 'Fetching repository data...';
+}
+
+function hideRepoLoading() {
+    document.getElementById('repoSpinner').style.display = 'none';
+    document.getElementById('analyzeRepoText').textContent = 'Analyze Repository';
+    document.querySelector('#repoMode .btn-analyze').disabled = false;
+    document.getElementById('repoStatus').textContent = 'Enter a GitHub repository URL';
+}
+
+function showRepoResults(content) {
+    const resultsSection = document.getElementById('repoResultsSection');
+    const resultsContent = document.getElementById('repoResultsContent');
+    
+    const htmlContent = formatMarkdown(content);
+    resultsContent.innerHTML = htmlContent;
+    
+    resultsSection.style.display = 'block';
+    resultsSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function hideRepoResults() {
+    document.getElementById('repoResultsSection').style.display = 'none';
+}
+
+function showRepoError(message) {
+    const errorSection = document.getElementById('repoErrorSection');
+    const errorMessage = document.getElementById('repoErrorMessage');
+    
+    errorMessage.textContent = message;
+    errorSection.style.display = 'block';
+    errorSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function hideRepoError() {
+    document.getElementById('repoErrorSection').style.display = 'none';
+}
+
+function copyRepoResults() {
+    const resultsContent = document.getElementById('repoResultsContent');
+    const text = resultsContent.innerText;
+    
+    navigator.clipboard.writeText(text).then(() => {
+        alert('Repository analysis copied to clipboard!');
+    }).catch(err => {
+        console.error('Failed to copy:', err);
+    });
+}
+
+function downloadRepoResults() {
+    const resultsContent = document.getElementById('repoResultsContent');
+    const text = resultsContent.innerText;
+    const repoUrl = document.getElementById('repoInput').value;
+    const repoName = repoUrl.split('/').pop() || 'repository';
+    
+    const blob = new Blob([text], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `devlens-${repoName}-analysis-${Date.now()}.md`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
 });
 
 // Analysis button handlers
