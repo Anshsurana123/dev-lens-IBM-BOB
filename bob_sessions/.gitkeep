@@ -1,0 +1,16 @@
+# This file ensures the bob_sessions/ directory is tracked by git
+
+This directory stores session logs and conversation history from DevLens commands:
+- Session transcripts for reference
+- Generated report metadata
+- Command execution logs
+
+The actual session files are gitignored to avoid committing potentially sensitive
+conversation data, but this .gitkeep file ensures the directory structure exists
+in the repository.
+
+Session logs can be useful for:
+- Debugging command execution
+- Understanding what Bob analyzed
+- Tracking report generation history
+- Reviewing past code reviews

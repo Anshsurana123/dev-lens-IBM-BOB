@@ -1,0 +1,119 @@
+# DevLens - Git Ignore File
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Environment Variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE and Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Build Output
+dist/
+build/
+*.tsbuildinfo
+
+# Test Coverage
+coverage/
+.nyc_output/
+*.lcov
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Runtime Data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Temporary Files
+tmp/
+temp/
+*.tmp
+
+# OS Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Python (if using Python tools)
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+env/
+
+# Generated Output Files (Keep the folder, ignore contents)
+output/*.md
+!output/.gitkeep
+
+# Bob Session Logs (Keep the folder, ignore contents)
+bob_sessions/*.log
+bob_sessions/*.json
+!bob_sessions/.gitkeep
+
+# Backup Files
+*.bak
+*.backup
+*~
+
+# Archive Files
+*.zip
+*.tar.gz
+*.rar
+
+# Sensitive Data
+secrets/
+credentials/
+*.key
+*.pem
+*.cert
+
+# Database Files
+*.db
+*.sqlite
+*.sqlite3
+
+# Cache
+.cache/
+.parcel-cache/
+.eslintcache
+
+# Documentation Build
+docs/_build/
+site/
+
+# Misc
+.sass-cache/
+connect.lock
+typings/
+
+# Made with Bob

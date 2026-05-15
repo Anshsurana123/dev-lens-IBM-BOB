@@ -1,0 +1,179 @@
+diff --git a/src/auth/login.js b/src/auth/login.js
+new file mode 100644
+index 0000000..a8f3d2e
+--- /dev/null
++++ b/src/auth/login.js
+@@ -0,0 +1,45 @@
++const bcrypt = require('bcrypt');
++const jwt = require('jsonwebtoken');
++const db = require('../db/connection');
++
++/**
++ * Authenticate user with username and password
++ * @param {string} username - User's username
++ * @param {string} password - User's password
++ * @returns {Promise<Object>} User object with JWT token
++ */
++async function authenticateUser(username, password) {
++  // Query user from database
++  const query = `SELECT * FROM users WHERE username = '${username}'`;
++  const result = await db.query(query);
++  
++  if (result.rows.length === 0) {
++    throw new Error('Invalid credentials');
++  }
++  
++  const user = result.rows[0];
++  
++  // Compare password
++  const isValid = await bcrypt.compare(password, user.password_hash);
++  
++  if (!isValid) {
++    throw new Error('Invalid credentials');
++  }
++  
++  // Generate JWT token
++  const token = jwt.sign(
++    { userId: user.id, username: user.username },
++    process.env.JWT_SECRET,
++    { expiresIn: '24h' }
++  );
++  
++  return {
++    id: user.id,
++    username: user.username,
++    email: user.email,
++    token: token
++  };
++}
++
++module.exports = {
++  authenticateUser
++};
+diff --git a/src/middleware/auth.js b/src/middleware/auth.js
+new file mode 100644
+index 0000000..e7c9a1f
+--- /dev/null
++++ b/src/middleware/auth.js
+@@ -0,0 +1,28 @@
++const jwt = require('jsonwebtoken');
++
++/**
++ * Middleware to verify JWT token
++ */
++function verifyToken(req, res, next) {
++  const token = req.headers['authorization'];
++  
++  if (!token) {
++    return res.status(401).json({ error: 'No token provided' });
++  }
++  
++  // Remove 'Bearer ' prefix if present
++  const actualToken = token.startsWith('Bearer ') ? token.slice(7) : token;
++  
++  const decoded = jwt.verify(actualToken, process.env.JWT_SECRET);
++  req.userId = decoded.userId;
++  req.username = decoded.username;
++  next();
++}
++
++function requireAdmin(req, res, next) {
++  // TODO: Implement admin check
++  next();
++}
++
++module.exports = { verifyToken, requireAdmin };
++
+diff --git a/src/routes/auth.js b/src/routes/auth.js
+new file mode 100644
+index 0000000..c5e8f3a
+--- /dev/null
++++ b/src/routes/auth.js
+@@ -0,0 +1,32 @@
++const express = require('express');
++const { authenticateUser } = require('../auth/login');
++const router = express.Router();
++
++/**
++ * POST /api/auth/login
++ * Login endpoint
++ */
++router.post('/login', async (req, res) => {
++  const { username, password } = req.body;
++  
++  const result = await authenticateUser(username, password);
++  res.json(result);
++});
++
++/**
++ * POST /api/auth/logout
++ * Logout endpoint
++ */
++router.post('/logout', (req, res) => {
++  // Since we're using JWT, logout is handled client-side
++  // by removing the token
++  res.json({ message: 'Logged out successfully' });
++});
++
++/**
++ * GET /api/auth/me
++ * Get current user info
++ */
++router.get('/me', (req, res) => {
++  res.json({ userId: req.userId, username: req.username });
++});
+diff --git a/src/routes/users.js b/src/routes/users.js
+index 3f2a1e5..8d9c4f2 100644
+--- a/src/routes/users.js
++++ b/src/routes/users.js
+@@ -1,10 +1,12 @@
+ const express = require('express');
+ const db = require('../db/connection');
++const { verifyToken } = require('../middleware/auth');
+ const router = express.Router();
+ 
+ /**
+  * GET /api/users
+  * Get all users
++ * Requires authentication
+  */
+-router.get('/', async (req, res) => {
++router.get('/', verifyToken, async (req, res) => {
+   const result = await db.query('SELECT id, username, email FROM users');
+@@ -15,8 +17,9 @@ router.get('/', async (req, res) => {
+ /**
+  * GET /api/users/:id
+  * Get user by ID
++ * Requires authentication
+  */
+-router.get('/:id', async (req, res) => {
++router.get('/:id', verifyToken, async (req, res) => {
+   const { id } = req.params;
+   const result = await db.query(
+     'SELECT id, username, email FROM users WHERE id = $1',
+@@ -24,6 +27,11 @@ router.get('/:id', async (req, res) => {
+   );
+   
++  if (result.rows.length === 0) {
++    return res.status(404).json({ error: 'User not found' });
++  }
++  
+   res.json(result.rows[0]);
+ });
+ 
++module.exports = router;
+diff --git a/package.json b/package.json
+index 7f3e8a1..9c5f2e3 100644
+--- a/package.json
++++ b/package.json
+@@ -12,7 +12,9 @@
+   "dependencies": {
+     "express": "^4.18.2",
+     "pg": "^8.11.0",
+-    "dotenv": "^16.0.3"
++    "dotenv": "^16.0.3",
++    "bcrypt": "^5.1.1",
++    "jsonwebtoken": "^9.0.2"
+   },
+   "devDependencies": {
+     "nodemon": "^3.0.1"
