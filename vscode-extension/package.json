@@ -1,0 +1,292 @@
+{
+  "name": "devlens",
+  "displayName": "DevLens - AI Code Analysis",
+  "description": "AI-powered code review, security audit, and repository analysis for developers",
+  "version": "1.0.0",
+  "publisher": "devlens",
+  "icon": "images/icon.png",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Linters",
+    "Testing",
+    "Other"
+  ],
+  "keywords": [
+    "code review",
+    "security",
+    "ai",
+    "analysis",
+    "testing",
+    "documentation"
+  ],
+  "activationEvents": [
+    "onCommand:devlens.reviewPR",
+    "onCommand:devlens.explainRepo",
+    "onCommand:devlens.securityAudit",
+    "onCommand:devlens.testCoverage",
+    "onCommand:devlens.performanceCheck",
+    "onCommand:devlens.suggestRefactor",
+    "onCommand:devlens.explainCode",
+    "onCommand:devlens.generateCommit",
+    "onCommand:devlens.scanDependencies",
+    "onCommand:devlens.apiDesign",
+    "onCommand:devlens.databaseReview",
+    "onCommand:devlens.errorHandling",
+    "onView:devlensExplorer"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "devlens.reviewPR",
+        "title": "DevLens: Review PR",
+        "icon": "$(git-pull-request)"
+      },
+      {
+        "command": "devlens.explainRepo",
+        "title": "DevLens: Explain Repository",
+        "icon": "$(book)"
+      },
+      {
+        "command": "devlens.securityAudit",
+        "title": "DevLens: Security Audit",
+        "icon": "$(shield)"
+      },
+      {
+        "command": "devlens.testCoverage",
+        "title": "DevLens: Test Coverage Analysis",
+        "icon": "$(beaker)"
+      },
+      {
+        "command": "devlens.performanceCheck",
+        "title": "DevLens: Performance Check",
+        "icon": "$(dashboard)"
+      },
+      {
+        "command": "devlens.suggestRefactor",
+        "title": "DevLens: Suggest Refactoring",
+        "icon": "$(wrench)"
+      },
+      {
+        "command": "devlens.explainCode",
+        "title": "DevLens: Explain Selected Code",
+        "icon": "$(question)"
+      },
+      {
+        "command": "devlens.generateCommit",
+        "title": "DevLens: Generate Commit Message",
+        "icon": "$(git-commit)"
+      },
+      {
+        "command": "devlens.scanDependencies",
+        "title": "DevLens: Scan Dependencies",
+        "icon": "$(package)"
+      },
+      {
+        "command": "devlens.apiDesign",
+        "title": "DevLens: API Design Review",
+        "icon": "$(globe)"
+      },
+      {
+        "command": "devlens.databaseReview",
+        "title": "DevLens: Database Review",
+        "icon": "$(database)"
+      },
+      {
+        "command": "devlens.errorHandling",
+        "title": "DevLens: Error Handling Analysis",
+        "icon": "$(warning)"
+      },
+      {
+        "command": "devlens.openOutput",
+        "title": "DevLens: Open Output Folder",
+        "icon": "$(folder-opened)"
+      },
+      {
+        "command": "devlens.configure",
+        "title": "DevLens: Configure Settings",
+        "icon": "$(settings-gear)"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "devlens",
+          "title": "DevLens",
+          "icon": "images/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "devlens": [
+        {
+          "id": "devlensExplorer",
+          "name": "Commands",
+          "icon": "images/icon.svg"
+        },
+        {
+          "id": "devlensHistory",
+          "name": "Analysis History"
+        }
+      ]
+    },
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "devlens.reviewPR",
+          "when": "workspaceFolderCount > 0"
+        },
+        {
+          "command": "devlens.explainRepo",
+          "when": "workspaceFolderCount > 0"
+        },
+        {
+          "command": "devlens.securityAudit",
+          "when": "workspaceFolderCount > 0"
+        },
+        {
+          "command": "devlens.testCoverage",
+          "when": "workspaceFolderCount > 0"
+        },
+        {
+          "command": "devlens.performanceCheck",
+          "when": "workspaceFolderCount > 0"
+        },
+        {
+          "command": "devlens.suggestRefactor",
+          "when": "workspaceFolderCount > 0"
+        },
+        {
+          "command": "devlens.explainCode",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "devlens.generateCommit",
+          "when": "workspaceFolderCount > 0"
+        },
+        {
+          "command": "devlens.scanDependencies",
+          "when": "workspaceFolderCount > 0"
+        },
+        {
+          "command": "devlens.apiDesign",
+          "when": "workspaceFolderCount > 0"
+        },
+        {
+          "command": "devlens.databaseReview",
+          "when": "workspaceFolderCount > 0"
+        },
+        {
+          "command": "devlens.errorHandling",
+          "when": "workspaceFolderCount > 0"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "devlens.explainCode",
+          "when": "editorHasSelection",
+          "group": "devlens@1"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "devlens.configure",
+          "when": "view == devlensExplorer",
+          "group": "navigation"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "devlens.reviewPR",
+        "key": "ctrl+shift+r",
+        "mac": "cmd+shift+r",
+        "when": "workspaceFolderCount > 0"
+      },
+      {
+        "command": "devlens.explainRepo",
+        "key": "ctrl+shift+e",
+        "mac": "cmd+shift+e",
+        "when": "workspaceFolderCount > 0"
+      },
+      {
+        "command": "devlens.explainCode",
+        "key": "ctrl+shift+x",
+        "mac": "cmd+shift+x",
+        "when": "editorHasSelection"
+      }
+    ],
+    "configuration": {
+      "title": "DevLens",
+      "properties": {
+        "devlens.aiProvider": {
+          "type": "string",
+          "enum": [
+            "copilot",
+            "claude",
+            "cursor",
+            "cody",
+            "custom"
+          ],
+          "default": "copilot",
+          "description": "AI provider to use for analysis"
+        },
+        "devlens.outputDirectory": {
+          "type": "string",
+          "default": "devlens-output",
+          "description": "Directory to save analysis reports"
+        },
+        "devlens.autoSave": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically save analysis reports"
+        },
+        "devlens.showNotifications": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show notifications when analysis completes"
+        },
+        "devlens.customPromptPath": {
+          "type": "string",
+          "default": "",
+          "description": "Path to custom prompt templates"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.80.0",
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.45.0",
+    "typescript": "^5.1.6",
+    "@vscode/test-electron": "^2.3.3",
+    "vsce": "^2.15.0"
+  },
+  "dependencies": {
+    "simple-git": "^3.19.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/devlens.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/devlens/issues"
+  },
+  "homepage": "https://github.com/yourusername/devlens#readme",
+  "license": "MIT"
+}

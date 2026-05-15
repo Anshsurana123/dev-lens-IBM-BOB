@@ -1,0 +1,46 @@
+# DevLens Slash Commands for Cursor
+
+# When user types these commands, automatically read and execute the corresponding prompt
+
+When I say "/review-pr" or "review pr":
+Read the file .devlens/prompts/review-pr.md and execute its instructions with full workspace context. Analyze the staged git changes and provide a comprehensive PR review.
+
+When I say "/explain-repo" or "explain repo":
+Read the file .devlens/prompts/explain-repo.md and execute its instructions with full workspace context. Scan the entire repository and generate a complete Repo Bible.
+
+When I say "/security-audit" or "security audit":
+Read the file .devlens/prompts/security-audit.md and execute its instructions with full workspace context. Perform a comprehensive security audit of the codebase.
+
+When I say "/test-coverage" or "test coverage":
+Analyze the codebase for test coverage. Identify untested functions, suggest test cases, and provide a coverage report.
+
+When I say "/performance-check" or "performance check":
+Analyze the codebase for performance issues. Check algorithm complexity, database queries, memory usage, and provide optimization suggestions.
+
+When I say "/suggest-refactor" or "suggest refactor":
+Analyze the codebase for refactoring opportunities. Identify code smells, suggest improvements, and provide refactored code examples.
+
+When I say "/explain-code" or "explain code":
+Explain the selected code in plain English. Break down the logic, identify patterns, and provide learning resources.
+
+When I say "/generate-commit" or "generate commit":
+Analyze the staged git changes and generate a conventional commit message with multiple options.
+
+When I say "/scan-dependencies" or "scan dependencies":
+Scan package.json, requirements.txt, or other dependency files for vulnerabilities and outdated packages.
+
+When I say "/api-design" or "api design":
+Review API endpoints, routes, and design patterns. Suggest improvements for RESTful design, error handling, and documentation.
+
+When I say "/database-review" or "database review":
+Analyze database schema, queries, and migrations. Check for optimization opportunities, indexing issues, and data integrity.
+
+When I say "/error-handling" or "error handling":
+Review error handling patterns throughout the codebase. Identify missing error cases and suggest improvements.
+
+# General behavior
+- Always use full workspace context when executing these commands
+- Reference actual file names, line numbers, and function names
+- Provide actionable, specific feedback
+- Format output in markdown with clear sections
+- Save output to .devlens/output/ directory when possible
