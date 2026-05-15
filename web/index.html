@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevLens - AI-Powered Code Analysis</title>
+    <meta name="description" content="Instant AI-powered code reviews, security audits, and repository analysis. No installation required.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">🔍</span>
+                    <span class="logo-text">DevLens</span>
+                </div>
+                <nav class="nav">
+                    <a href="#features">Features</a>
+                    <a href="#how-it-works">How It Works</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="https://github.com/Anshsurana123/dev-lens-IBM-BOB" target="_blank">GitHub</a>
+                    <button class="btn-primary" onclick="scrollToAnalyzer()">Try Now</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Turn Code Review from<br>
+                    <span class="gradient-text">Hours to Seconds</span>
+                </h1>
+                <p class="hero-subtitle">
+                    AI-powered code analysis, security audits, and instant PR reviews.<br>
+                    No installation. No setup. Just paste and analyze.
+                </p>
+                <div class="hero-cta">
+                    <button class="btn-large btn-primary" onclick="scrollToAnalyzer()">
+                        Start Analyzing Free
+                    </button>
+                    <button class="btn-large btn-secondary" onclick="window.open('https://github.com/Anshsurana123/dev-lens-IBM-BOB')">
+                        View on GitHub
+                    </button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Analysis Types</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">8+</div>
+                        <div class="stat-label">AI Editors</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">15x</div>
+                        <div class="stat-label">Faster</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Powerful Analysis Tools</h2>
+            <p class="section-subtitle">Everything you need to ship better code, faster</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Code Review</h3>
+                    <p>Get senior-level PR reviews with risk scores, bug detection, and actionable feedback</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Security Audit</h3>
+                    <p>OWASP Top 10 vulnerability scanning with specific fixes and severity ratings</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📖</div>
+                    <h3>Code Explanation</h3>
+                    <p>Understand complex code with plain English explanations and visual diagrams</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🧪</div>
+                    <h3>Test Coverage</h3>
+                    <p>Identify untested code and get ready-to-use test cases</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Performance Check</h3>
+                    <p>Find bottlenecks with Big O analysis and optimization suggestions</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <h3>Refactoring</h3>
+                    <p>Get code smell detection and refactoring recommendations</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Analyzer Section -->
+    <section id="analyzer" class="analyzer">
+        <div class="container">
+            <h2 class="section-title">Try DevLens Now</h2>
+            <p class="section-subtitle">Paste your code and get instant AI-powered analysis</p>
+            
+            <div class="analyzer-container">
+                <!-- Analysis Type Selector -->
+                <div class="analysis-selector">
+                    <button class="analysis-btn active" data-type="review">
+                        <span class="btn-icon">🔍</span>
+                        <span class="btn-text">Code Review</span>
+                    </button>
+                    <button class="analysis-btn" data-type="security">
+                        <span class="btn-icon">🔒</span>
+                        <span class="btn-text">Security Audit</span>
+                    </button>
+                    <button class="analysis-btn" data-type="explain">
+                        <span class="btn-icon">📖</span>
+                        <span class="btn-text">Explain Code</span>
+                    </button>
+                    <button class="analysis-btn" data-type="test">
+                        <span class="btn-icon">🧪</span>
+                        <span class="btn-text">Test Coverage</span>
+                    </button>
+                    <button class="analysis-btn" data-type="performance">
+                        <span class="btn-icon">⚡</span>
+                        <span class="btn-text">Performance</span>
+                    </button>
+                    <button class="analysis-btn" data-type="refactor">
+                        <span class="btn-icon">🔧</span>
+                        <span class="btn-text">Refactor</span>
+                    </button>
+                </div>
+
+                <!-- Code Input -->
+                <div class="code-input-section">
+                    <div class="input-header">
+                        <label for="codeInput">Paste Your Code</label>
+                        <div class="input-actions">
+                            <select id="languageSelect" class="language-select">
+                                <option value="javascript">JavaScript</option>
+                                <option value="typescript">TypeScript</option>
+                                <option value="python">Python</option>
+                                <option value="java">Java</option>
+                                <option value="go">Go</option>
+                                <option value="rust">Rust</option>
+                                <option value="cpp">C++</option>
+                                <option value="csharp">C#</option>
+                            </select>
+                            <button class="btn-icon-only" onclick="clearCode()" title="Clear">
+                                🗑️
+                            </button>
+                        </div>
+                    </div>
+                    <textarea 
+                        id="codeInput" 
+                        class="code-textarea" 
+                        placeholder="// Paste your code here...
+function calculateTotal(items) {
+    let total = 0;
+    for (let item of items) {
+        total += item.price * item.quantity;
+    }
+    return total;
+}"
+                        spellcheck="false"
+                    ></textarea>
+                    <div class="input-footer">
+                        <span class="char-count" id="charCount">0 characters</span>
+                        <button class="btn-primary btn-analyze" onclick="analyzeCode()">
+                            <span class="btn-spinner" id="spinner" style="display: none;">⏳</span>
+                            <span id="analyzeText">Analyze Code</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Results Section -->
+                <div class="results-section" id="resultsSection" style="display: none;">
+                    <div class="results-header">
+                        <h3>Analysis Results</h3>
+                        <div class="results-actions">
+                            <button class="btn-secondary btn-sm" onclick="copyResults()">
+                                📋 Copy
+                            </button>
+                            <button class="btn-secondary btn-sm" onclick="downloadResults()">
+                                💾 Download
+                            </button>
+                        </div>
+                    </div>
+                    <div class="results-content" id="resultsContent">
+                        <!-- Results will be inserted here -->
+                    </div>
+                </div>
+
+                <!-- Error Section -->
+                <div class="error-section" id="errorSection" style="display: none;">
+                    <div class="error-content">
+                        <span class="error-icon">⚠️</span>
+                        <span class="error-message" id="errorMessage"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Paste Your Code</h3>
+                    <p>Copy and paste any code snippet or file</p>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Choose Analysis</h3>
+                    <p>Select from 6 powerful analysis types</p>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Get Insights</h3>
+                    <p>Receive detailed, actionable feedback instantly</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2 class="section-title">Simple, Transparent Pricing</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Free</h3>
+                    <div class="price">$0<span>/month</span></div>
+                    <ul class="features-list">
+                        <li>✅ 10 analyses per day</li>
+                        <li>✅ All analysis types</li>
+                        <li>✅ Basic support</li>
+                        <li>✅ Web interface</li>
+                    </ul>
+                    <button class="btn-primary btn-full" onclick="scrollToAnalyzer()">Get Started</button>
+                </div>
+                
+                <div class="pricing-card featured">
+                    <div class="badge">Most Popular</div>
+                    <h3>Pro</h3>
+                    <div class="price">$9<span>/month</span></div>
+                    <ul class="features-list">
+                        <li>✅ Unlimited analyses</li>
+                        <li>✅ All analysis types</li>
+                        <li>✅ Priority support</li>
+                        <li>✅ API access</li>
+                        <li>✅ VS Code extension</li>
+                        <li>✅ Team collaboration</li>
+                    </ul>
+                    <button class="btn-primary btn-full">Coming Soon</button>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Enterprise</h3>
+                    <div class="price">Custom</div>
+                    <ul class="features-list">
+                        <li>✅ Everything in Pro</li>
+                        <li>✅ Self-hosted option</li>
+                        <li>✅ Custom integrations</li>
+                        <li>✅ SLA guarantee</li>
+                        <li>✅ Dedicated support</li>
+                    </ul>
+                    <button class="btn-secondary btn-full">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <span class="logo-icon">🔍</span>
+                        <span class="logo-text">DevLens</span>
+                    </div>
+                    <p>AI-powered code analysis for developers</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Product</h4>
+                    <a href="#features">Features</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="https://github.com/Anshsurana123/dev-lens-IBM-BOB">GitHub</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <a href="https://github.com/Anshsurana123/dev-lens-IBM-BOB/blob/main/docs/INSTALLATION.md">Documentation</a>
+                    <a href="https://github.com/Anshsurana123/dev-lens-IBM-BOB/blob/main/SLASH-COMMANDS-GUIDE.md">Slash Commands</a>
+                    <a href="https://github.com/Anshsurana123/dev-lens-IBM-BOB/blob/main/FEATURES.md">Features</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <a href="#">About</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 DevLens. Built for IBM Bob Hackathon 2026. MIT License.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

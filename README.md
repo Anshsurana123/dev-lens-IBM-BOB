@@ -2,7 +2,7 @@
 
 ### Turn Code Review & Onboarding from Hours to Minutes
 
-**DevLens** is an AI-powered developer tool that gives you instant, senior-level code reviews and comprehensive repository documentation. Built for the IBM Bob Hackathon 2026, **now compatible with ALL major AI coding assistants**.
+**DevLens** is an AI-powered developer tool that gives you instant, senior-level code reviews and comprehensive repository documentation. Built for the IBM Bob Hackathon 2026.
 
 [![IBM Bob Hackathon 2026](https://img.shields.io/badge/IBM%20Bob-Hackathon%202026-blue)](https://ibm.com/bob)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -11,7 +11,12 @@
 [![Works with Copilot](https://img.shields.io/badge/Works%20with-Copilot-000000)](https://github.com/features/copilot)
 [![Works with Claude](https://img.shields.io/badge/Works%20with-Claude-8B5CF6)](https://claude.ai)
 
-**🚀 Works with:** IBM Bob • Cursor • GitHub Copilot • Cody • Claude • Windsurf • Tabnine • Antigravity
+**🚀 3 Ways to Use DevLens:**
+1. **🌐 Web App** - No installation, paste code and analyze instantly
+2. **⚡ Slash Commands** - Type `/review-pr` in your AI editor
+3. **📦 VS Code Extension** - One-click analysis in VS Code
+
+**Works with:** IBM Bob • Cursor • GitHub Copilot • Cody • Claude • Windsurf • Tabnine • Antigravity
 
 ---
 
@@ -195,6 +200,36 @@ Generate meaningful conventional commit messages:
 ```
 
 ---
+
+### 🌐 Option 1: Web App (No Installation!)
+
+**Try DevLens instantly in your browser:**
+
+1. Visit the web app (or run locally)
+2. Paste your code
+3. Choose analysis type (Review, Security, Explain, etc.)
+4. Get instant results
+
+**Run Locally:**
+```bash
+cd devlens/web
+python -m http.server 8000
+# Open http://localhost:8000
+```
+
+**Features:**
+- ✅ No installation required
+- ✅ 6 analysis types
+- ✅ Powered by Google AI Studio (Gemini Pro)
+- ✅ 10 free analyses per day
+- ✅ Copy/download results
+- ✅ Works on any device
+
+📖 **Setup guide**: [web/README.md](web/README.md)
+
+---
+
+### ⚡ Option 2: Slash Commands (AI Editors)
 
 ## 🚀 Quick Start
 
