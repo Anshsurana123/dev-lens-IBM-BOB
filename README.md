@@ -212,9 +212,8 @@ Generate meaningful conventional commit messages:
 
 **Run Locally:**
 ```bash
-cd devlens/web
-python -m http.server 8000
-# Open http://localhost:8000
+cd devlens/nextjs.app
+npm run dev
 ```
 
 **Features:**
