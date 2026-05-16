@@ -87,16 +87,68 @@ We built DevLens for maximum speed and scalability:
 
 Beyond the Web App, DevLens provides **12 powerful slash commands** that work natively inside your favorite AI editors (IBM Bob, Cursor, Copilot, Cody, Windsurf). Just type and go—no copy-pasting required!
 
-### 🎯 Core Slash Commands
+### 🎯 12 Powerful Slash Commands
 
-- 1️⃣ `/review-pr`: Instant Senior-Level Code Review with risk scoring and potential bugs.
-- 2️⃣ `/explain-repo`: Generates a complete "Repo Bible" summarizing architecture and data flow.
-- 3️⃣ `/security-audit`: OWASP Top 10 security vulnerability detection.
-- 4️⃣ `/test-coverage`: Identifies untested critical paths and generates test templates.
-- 5️⃣ `/performance-check`: Finds N+1 query problems, memory leaks, and O(n²) bottlenecks.
-- 6️⃣ `/suggest-refactor`: Intelligent code smell detection and SOLID principle refactoring.
-- 7️⃣ `/explain-code`: Translates complex logic into simple, real-world analogies.
-- 8️⃣ `/generate-commit`: Generates meaningful, conventional commit messages for your staged changes.
+#### 1️⃣ `/review-pr` - Instant Senior-Level Code Review
+Get a comprehensive PR review in seconds. Analyzes your staged changes with full context and delivers:
+- ✅ Suggested PR title & description
+- ⚠️ Risk score with detailed justification
+- 🐛 Potential bugs and edge cases you missed
+- 🧪 Missing test coverage
+
+#### 2️⃣ `/explain-repo` - Instant Repository Documentation
+Understand any codebase in under 30 minutes. Generates a "Repo Bible" containing:
+- 🎯 Plain English summary and tech stack detection
+- 🏗️ Architecture breakdown and Data flow visualization
+- ⭐ Top 5 most important files and complexity warnings
+
+#### 3️⃣ `/security-audit` - OWASP Security Scanner
+Comprehensive security vulnerability detection covering OWASP Top 10:
+- 🔒 SQL injection, XSS, CSRF detection
+- 🔑 Hardcoded credentials and secrets scanning
+- 🛡️ Authentication and authorization flaws
+
+#### 4️⃣ `/test-coverage` - Test Coverage Analyzer
+Identify untested code and generate test templates:
+- 🎯 Critical paths that need testing
+- ✍️ Ready-to-use test templates (Jest, Pytest, JUnit)
+- 🧪 Edge cases and test scenarios
+
+#### 5️⃣ `/performance-check` - Performance Analyzer
+Find bottlenecks and optimization opportunities:
+- ⚡ Algorithm complexity analysis (O(n²) detection)
+- 🗄️ N+1 query problems and Memory leaks
+- 🚀 Optimized code examples with benchmarks
+
+#### 6️⃣ `/suggest-refactor` - AI-Powered Refactoring
+Intelligent code quality improvements:
+- 🔧 Code smell detection (long methods, god classes)
+- 🎨 Design pattern suggestions and SOLID principle violations
+- ♻️ Before/after refactoring examples
+
+#### 7️⃣ `/explain-code` - Plain English Code Explainer
+Translate complex code into simple explanations:
+- 📖 Step-by-step logic breakdown
+- 🎯 Real-world analogies
+- 🔍 Algorithm and pattern identification
+
+#### 8️⃣ `/generate-commit` - Smart Commit Messages
+Generate meaningful conventional commit messages:
+- 📝 Conventional commits format
+- 🎯 Multiple message options
+- 📊 Change analysis and impact assessment
+
+#### 9️⃣ `/scan-dependencies` - Dependency Scanner
+Detects outdated, vulnerable, or unused packages in your project manifest files to keep your repository secure.
+
+#### 🔟 `/api-design` - API Architecture Review
+Evaluates REST/GraphQL endpoints for best practices, RESTful standards, caching strategies, and security vulnerabilities.
+
+#### 1️⃣1️⃣ `/database-review` - Database Schema Analysis
+Analyzes SQL/NoSQL schemas to suggest proper indexing, normalize relations, and prevent performance bottlenecks.
+
+#### 1️⃣2️⃣ `/error-handling` - Robust Error Handling Review
+Scans your code to ensure failures gracefully fallback, errors are properly logged, and try/catch blocks are structured robustly.
 
 ### 🚀 Quick IDE Setup
 
