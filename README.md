@@ -83,6 +83,69 @@ We built DevLens for maximum speed and scalability:
 
 ---
 
+## ⚡ Option 2: Slash Commands (AI Editors & IDEs)
+
+Beyond the Web App, DevLens provides **12 powerful slash commands** that work natively inside your favorite AI editors (IBM Bob, Cursor, Copilot, Cody, Windsurf). Just type and go—no copy-pasting required!
+
+### 🎯 Core Slash Commands
+
+- 1️⃣ `/review-pr`: Instant Senior-Level Code Review with risk scoring and potential bugs.
+- 2️⃣ `/explain-repo`: Generates a complete "Repo Bible" summarizing architecture and data flow.
+- 3️⃣ `/security-audit`: OWASP Top 10 security vulnerability detection.
+- 4️⃣ `/test-coverage`: Identifies untested critical paths and generates test templates.
+- 5️⃣ `/performance-check`: Finds N+1 query problems, memory leaks, and O(n²) bottlenecks.
+- 6️⃣ `/suggest-refactor`: Intelligent code smell detection and SOLID principle refactoring.
+- 7️⃣ `/explain-code`: Translates complex logic into simple, real-world analogies.
+- 8️⃣ `/generate-commit`: Generates meaningful, conventional commit messages for your staged changes.
+
+### 🚀 Quick IDE Setup
+
+To enable slash commands in your project, simply run our one-line setup:
+
+```bash
+cd your-project
+curl -fsSL https://raw.githubusercontent.com/Anshsurana123/dev-lens-IBM-BOB/main/setup-slash-commands.sh | bash
+```
+
+**That's it!** Now you can type `/review-pr` or `/explain-repo` directly in your IDE's AI chat window.
+
+### 📝 Manual IDE Setup (If Preferred)
+
+#### 🤖 IBM Bob IDE (Native)
+```bash
+cd your-project
+git clone https://github.com/Anshsurana123/dev-lens-IBM-BOB.git .devlens
+cp -r .devlens/.bob .
+# Use: /review-pr, /explain-repo, etc.
+```
+
+#### 🎨 Cursor / Windsurf
+```bash
+cd your-project
+git clone https://github.com/Anshsurana123/dev-lens-IBM-BOB.git .devlens
+cp .devlens/.cursorrules .
+cp -r .devlens/prompts .devlens/
+# Use: /review-pr, /explain-repo, etc.
+```
+
+#### 🐙 GitHub Copilot / Cody
+```bash
+cd your-project
+git clone https://github.com/Anshsurana123/dev-lens-IBM-BOB.git .devlens
+cp -r .devlens/.vscode .
+cp -r .devlens/prompts .devlens/
+# Use: /review-pr or /devlens-review-pr
+```
+
+#### 📦 VS Code Extension
+DevLens also ships as a native VS Code Extension for one-click analysis.
+```bash
+code --install-extension devlens.devlens
+# Use Command Palette: "DevLens: Review PR"
+```
+
+---
+
 ## 💻 Local Development Setup
 
 Want to run DevLens locally? It takes less than 2 minutes.
