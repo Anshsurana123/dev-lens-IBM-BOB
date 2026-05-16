@@ -16,9 +16,8 @@
   
   <br/>
   
-  <strong>[🔴 Live Demo](https://dev-lens-ibm-d0yv1tbg0-anshsurana123s-projects.vercel.app/)</strong> •
-  <strong>[📖 Documentation](https://github.com/Anshsurana123/dev-lens-IBM-BOB)</strong> •
-  <strong>[🐛 Report Bug](https://github.com/Anshsurana123/dev-lens-IBM-BOB/issues)</strong>
+
+ 
 
 </div>
 
