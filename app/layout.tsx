@@ -5,6 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://dev-lens-ibm.vercel.app"),
   title: "DevLens - AI-Powered Code Analysis",
   description: "Analyze code snippets and GitHub repositories with AI. Get instant code reviews, security audits, explanations, and more.",
   keywords: ["code analysis", "AI", "code review", "GitHub", "developer tools", "DevLens"],
