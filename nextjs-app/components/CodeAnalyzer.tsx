@@ -87,28 +87,7 @@ export default function CodeAnalyzer() {
 
   return (
     <div id="analyzer" className="space-y-6">
-      {/* Usage Counter */}
-      <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="text-2xl">📊</span>
-            <div>
-              <p className="font-semibold text-gray-900 dark:text-white">
-                Daily Usage: {count} / {limit}
-              </p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                {limit - count} analyses remaining today
-              </p>
-            </div>
-          </div>
-          <div className="w-24 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-blue-600 transition-all duration-300"
-              style={{ width: `${(count / limit) * 100}%` }}
-            />
-          </div>
-        </div>
-      </div>
+
 
       {/* Analysis Type Selection */}
       <div>

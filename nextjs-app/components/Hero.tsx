@@ -50,8 +50,8 @@ export default function Hero() {
             <div className="text-sm text-gray-600 dark:text-gray-400">Repos Scanned</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-orange-600 dark:text-orange-400">10</div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">Free Daily Uses</div>
+            <div className="text-3xl font-bold text-orange-600 dark:text-orange-400">∞</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">Unlimited Analysis</div>
           </div>
         </div>
       </div>

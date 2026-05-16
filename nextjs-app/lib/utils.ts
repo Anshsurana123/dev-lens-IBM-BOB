@@ -67,7 +67,7 @@ export function parseGitHubUrl(url: string): { owner: string; repo: string } | n
  * Check if daily usage limit is reached
  */
 export function checkDailyLimit(): { allowed: boolean; count: number; limit: number } {
-  const DAILY_LIMIT = 10;
+  const DAILY_LIMIT = 999999;
   
   // Check if we're in the browser
   if (typeof window === 'undefined') {
@@ -86,7 +86,7 @@ export function checkDailyLimit(): { allowed: boolean; count: number; limit: num
   }
   
   return {
-    allowed: usage.count < DAILY_LIMIT,
+    allowed: true,
     count: usage.count,
     limit: DAILY_LIMIT
   };
