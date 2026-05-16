@@ -212,7 +212,9 @@ Generate meaningful conventional commit messages:
 
 **Run Locally:**
 ```bash
-cd devlens/nextjs.app
+git clone https://github.com/Anshsurana123/dev-lens-IBM-BOB.git
+cd dev-lens-IBM-BOB
+npm install
 npm run dev
 ```
 
