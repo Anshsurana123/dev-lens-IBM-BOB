@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import type { AnalysisRequest, AnalysisResponse } from "@/lib/types";
 
-const GOOGLE_AI_API_KEY = process.env.GOOGLE_AI_API_KEY;
-const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent";
+const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
 
 const analysisPrompts = {
   review: `You are a senior software engineer conducting a thorough code review. Analyze the following {language} code and provide:
@@ -113,6 +112,7 @@ Provide complete refactored code examples with clear explanations of improvement
 
 export async function POST(request: NextRequest): Promise<NextResponse<AnalysisResponse>> {
   try {
+    const GOOGLE_AI_API_KEY = process.env.GOOGLE_AI_API_KEY;
     if (!GOOGLE_AI_API_KEY) {
       return NextResponse.json(
         { success: false, error: "API key not configured" },
@@ -130,11 +130,16 @@ export async function POST(request: NextRequest): Promise<NextResponse<AnalysisR
       );
     }
 
-    // Get the appropriate prompt
     const promptTemplate = analysisPrompts[type];
-    const prompt = promptTemplate.replace(/{language}/g, language);
+    if (!promptTemplate) {
+      return NextResponse.json(
+        { success: false, error: "Invalid analysis type" },
+        { status: 400 }
+      );
+    }
 
-    // Call Google AI API
+    const prompt = promptTemplate.replace("{language}", language) + `\n\nCode to analyze:\n\`\`\`${language}\n${code}\n\`\`\``;
+
     const response = await fetch(`${API_URL}?key=${GOOGLE_AI_API_KEY}`, {
       method: "POST",
       headers: {

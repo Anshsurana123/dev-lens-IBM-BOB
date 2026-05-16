@@ -31,7 +31,7 @@ export default function Header() {
               Analyzer
             </a>
             <a
-              href="https://github.com/yourusername/devlens"
+              href="https://github.com/Anshsurana123/dev-lens-IBM-BOB"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors"

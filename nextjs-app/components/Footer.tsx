@@ -23,7 +23,7 @@ export default function Footer() {
             </p>
             <div className="flex gap-4">
               <a
-                href="https://github.com/yourusername/devlens"
+                href="https://github.com/Anshsurana123/dev-lens-IBM-BOB"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-white transition-colors"
@@ -62,12 +62,12 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="https://github.com/yourusername/devlens" className="text-gray-400 hover:text-white transition-colors">
+                <a href="https://github.com/Anshsurana123/dev-lens-IBM-BOB" className="text-gray-400 hover:text-white transition-colors">
                   Documentation
                 </a>
               </li>
               <li>
-                <a href="https://github.com/yourusername/devlens/issues" className="text-gray-400 hover:text-white transition-colors">
+                <a href="https://github.com/Anshsurana123/dev-lens-IBM-BOB/issues" className="text-gray-400 hover:text-white transition-colors">
                   Report Issue
                 </a>
               </li>
@@ -89,12 +89,12 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="https://github.com/yourusername/devlens/blob/main/LICENSE" className="text-gray-400 hover:text-white transition-colors">
+                <a href="https://github.com/Anshsurana123/dev-lens-IBM-BOB/blob/main/LICENSE" className="text-gray-400 hover:text-white transition-colors">
                   License (MIT)
                 </a>
               </li>
               <li>
-                <a href="https://github.com/yourusername/devlens/blob/main/CONTRIBUTING.md" className="text-gray-400 hover:text-white transition-colors">
+                <a href="https://github.com/Anshsurana123/dev-lens-IBM-BOB/blob/main/CONTRIBUTING.md" className="text-gray-400 hover:text-white transition-colors">
                   Contributing
                 </a>
               </li>

@@ -3,7 +3,7 @@
 // Configuration
 const CONFIG = {
     API_KEY: 'YOUR_GOOGLE_AI_STUDIO_API_KEY', // Replace with your API key
-    API_ENDPOINT: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent',
+    API_ENDPOINT: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent',
     MAX_CHARS: 50000,
     FREE_DAILY_LIMIT: 10
 };

@@ -231,8 +231,8 @@ export default function CodeAnalyzer() {
             </div>
           </div>
           
-          <div className="p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-lg">
-            <div className="markdown-content prose prose-slate dark:prose-invert max-w-none">
+          <div className="p-6 bg-white rounded-lg border border-gray-200 shadow-lg text-black">
+            <div className="markdown-content prose prose-slate max-w-none">
               <ReactMarkdown>{result}</ReactMarkdown>
             </div>
           </div>

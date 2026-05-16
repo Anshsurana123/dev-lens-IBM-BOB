@@ -27,7 +27,7 @@ export default function Hero() {
             Start Analyzing →
           </a>
           <a
-            href="https://github.com/yourusername/devlens"
+            href="https://github.com/Anshsurana123/dev-lens-IBM-BOB"
             target="_blank"
             rel="noopener noreferrer"
             className="px-8 py-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 shadow-lg hover:shadow-xl btn-hover"

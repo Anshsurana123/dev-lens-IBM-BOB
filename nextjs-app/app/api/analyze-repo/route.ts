@@ -2,15 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 import type { RepoAnalysisRequest, RepoAnalysisResponse, GitHubRepoData, GitHubTree } from "@/lib/types";
 import { parseGitHubUrl } from "@/lib/utils";
 
-const GOOGLE_AI_API_KEY = process.env.GOOGLE_AI_API_KEY;
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-const AI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent";
+const AI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
 
 async function fetchGitHubRepo(owner: string, repo: string): Promise<GitHubRepoData> {
   const headers: HeadersInit = {
     "Accept": "application/vnd.github.v3+json",
   };
   
+  const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
   if (GITHUB_TOKEN) {
     headers["Authorization"] = `token ${GITHUB_TOKEN}`;
   }
@@ -49,6 +48,7 @@ async function fetchRepoTree(owner: string, repo: string, branch: string): Promi
     "Accept": "application/vnd.github.v3+json",
   };
   
+  const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
   if (GITHUB_TOKEN) {
     headers["Authorization"] = `token ${GITHUB_TOKEN}`;
   }
@@ -70,6 +70,7 @@ async function fetchFileContent(owner: string, repo: string, path: string): Prom
     "Accept": "application/vnd.github.v3.raw",
   };
   
+  const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
   if (GITHUB_TOKEN) {
     headers["Authorization"] = `token ${GITHUB_TOKEN}`;
   }
@@ -187,6 +188,7 @@ Based on this information, provide a detailed analysis in the following format:
 
 Be specific, actionable, and reference actual files/directories from the repository.`;
 
+  const GOOGLE_AI_API_KEY = process.env.GOOGLE_AI_API_KEY;
   const response = await fetch(`${AI_API_URL}?key=${GOOGLE_AI_API_KEY}`, {
     method: "POST",
     headers: {
@@ -228,6 +230,7 @@ Be specific, actionable, and reference actual files/directories from the reposit
 
 export async function POST(request: NextRequest): Promise<NextResponse<RepoAnalysisResponse>> {
   try {
+    const GOOGLE_AI_API_KEY = process.env.GOOGLE_AI_API_KEY;
     if (!GOOGLE_AI_API_KEY) {
       return NextResponse.json(
         { success: false, error: "API key not configured" },
